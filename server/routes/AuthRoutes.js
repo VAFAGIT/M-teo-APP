@@ -6,5 +6,5 @@ router.post("/", Login);
 router.post("/register", CreateUser);
 
 
-module.exports = { router} ;
+module.exports =  router ;
 

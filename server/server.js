@@ -11,7 +11,6 @@ app.use(express.json());
 
 // Routes
 app.use("/api/auth", require("../server/routes/AuthRoutes"));
-// app.use("/api/dashboard", require("./routes/dashboard"));
 
 
 
