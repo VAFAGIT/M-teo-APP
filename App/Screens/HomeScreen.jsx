@@ -7,8 +7,7 @@ import {
   Pressable,
   SafeAreaView,
   StyleSheet, 
-  ActivityIndicator, 
-  Button ,
+  ActivityIndicator,
   Image,
 } from 'react-native';
 import axios from 'axios';
@@ -20,8 +19,15 @@ const HomeScreen = () => {
   const [loading, setLoading] = useState(true);
 
   const { userInfo,  isLoading , logout} = useContext(AuthContext);
-  const imgj = require('../assets/images/c.png');
+  // const img = {
+  //   uri:
+  //     "http://openweathermap.org/img/wn/" +
+  //     weather[0].icon +
+  //     "@2x.png",
+  // }; 
 
+  // change imag based on weather conditions 
+  
 
   useEffect(() => {
     (async () => {
@@ -48,10 +54,19 @@ const HomeScreen = () => {
           console.error(error);
         }
       };
+      
 
       fetchData();
     })();
   }, []);
+
+
+  const img = {
+    uri:  
+      "http://openweathermap.org/img/wn/" +
+      weatherData.weather[0].icon +
+      "@2x.png",
+  }
 
   return (
        <SafeAreaView style={styles.safeArea}>
@@ -60,7 +75,8 @@ const HomeScreen = () => {
         <ActivityIndicator size="large" />
             ) : (
               <> 
-                    <Image source={imgj} style={{width: 200, height: 200, marginBottom:40}}/>
+                    <Image source={img} 
+                    style={{width: 200, height: 200, marginBottom:40}}/>
 
                     <Text style={styles.text}>
                       {weatherData.name}, {weatherData.sys.country}
