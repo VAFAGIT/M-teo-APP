@@ -53,6 +53,7 @@ const RegisterScreen = ({navigation}) => {
            style={styles.Button} 
            onPress={() => {
            register(name, email, password);
+          //  navigation.navigate('/HomeScreen')
           }}
         >
             <Text style={{color: 'white', textAlign: 'center'}}>Register</Text>

@@ -25,6 +25,8 @@ export const AuthProvider = ({ children}) => {
             setIsLoading(false);
             setErrorMessage(res.data.message)            
             console.log(userInfo);
+         
+
         })
         .catch(e => {
             console.log(`Register error ${e}`);

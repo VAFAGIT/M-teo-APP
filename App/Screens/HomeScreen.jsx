@@ -12,31 +12,19 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import * as Location from 'expo-location';
-// import Constants from 'expo-constants';
 
 const HomeScreen = () => {
   const [weatherData, setWeatherData] = useState({});
   const [loading, setLoading] = useState(true);
-
-  const { userInfo,  isLoading , logout} = useContext(AuthContext);
-  // const img = {
-  //   uri:
-  //     "http://openweathermap.org/img/wn/" +
-  //     weather[0].icon +
-  //     "@2x.png",
-  // }; 
-
-  // change imag based on weather conditions 
-  
+  // const img = require('../assets/images/bg.png')
+  const { userInfo,  isLoading , logout} = useContext(AuthContext);  
 
   useEffect(() => {
     (async () => {
-      // if (Constants.isDevice) {
         const { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
           console.error('Location permission not granted');
         }
-      // }
 
       const API_KEY = "96701f0b5d8c01ba81f4dabadf59545d"
 
@@ -46,7 +34,7 @@ const HomeScreen = () => {
       const fetchData = async () => {
         try {
           const { data } = await axios.get(
-            `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`
+            `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
           );
           setWeatherData(data);
           setLoading(false);
@@ -61,12 +49,12 @@ const HomeScreen = () => {
   }, []);
 
 
-  const img = {
-    uri:  
-      "http://openweathermap.org/img/wn/" +
+  const img = weatherData.weather ? {
+    uri: "http://openweathermap.org/img/wn/" +
       weatherData.weather[0].icon +
       "@2x.png",
-  }
+  } : {};
+  
 
   return (
        <SafeAreaView style={styles.safeArea}>
@@ -76,19 +64,19 @@ const HomeScreen = () => {
             ) : (
               <> 
                     <Image source={img} 
-                    style={{width: 200, height: 200, marginBottom:40}}/>
+                    style={styles.weatherIcon}/>
 
-                    <Text style={styles.text}>
+                    <Text style={styles.locationText}>
                       {weatherData.name}, {weatherData.sys.country}
                     </Text>
-                    <Text style={styles.text}>
+                    <Text style={styles.weatherText}>
                       {weatherData.weather[0].main}: {weatherData.weather[0].description}
                     </Text>
-                    <Text style={styles.text}>
-                      Temperature: {weatherData.main.temp}°C
+                    <Text style={styles.temperatureText}>
+                       {weatherData.main.temp.toFixed(0)}°C
                     </Text>
-                    <Text style={styles.text}>
-                      Humidity: {weatherData.main.humidity}%
+                    <Text style={styles.humidityText}>
+                       {weatherData.main.humidity}%
                     </Text>
 
                 
@@ -116,11 +104,10 @@ const styles = StyleSheet.create({
   Button:{
     marginEnd: 10,
     backgroundColor: '#A5E3CC',
-    // borderRadius: 70,
     padding: 10,
     width: '100%',
     marginTop: 50,
-    marginLeft: 5,    
+    marginLeft: 1,    
   },
   locationText: {
     fontSize: 30,
@@ -147,8 +134,8 @@ const styles = StyleSheet.create({
     safeArea: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 10,
-    paddingBottom: 1,
+    paddingTop: 4,
+    paddingBottom: 10,
   },
 });
 

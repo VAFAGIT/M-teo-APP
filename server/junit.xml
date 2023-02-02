@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="1" failures="0" errors="0" time="5.013">
+  <testsuite name="Login endpoint" errors="0" failures="0" skipped="0" timestamp="2023-02-01T17:56:25" time="4.732" tests="1">
+    <testcase classname="Login endpoint returns a status of 200" name="Login endpoint returns a status of 200" time="1.923">
+    </testcase>
+  </testsuite>
+</testsuites>
